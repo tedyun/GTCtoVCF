@@ -13,7 +13,7 @@ genome_build=${2:-"37"}
 if [ ${genome_build} = "37" ]; then
 	remote="ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/BUILD.37.3/Assembled_chromosomes/seq"
 elif [ ${genome_build} = "38" ]; then
-    remote=ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/Assembled_chromosomes/seq/
+    remote=ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/ANNOTATION_RELEASE.109/Assembled_chromosomes/seq/
 else
 	echo "Error: Unsupported genome build ${genome_build}, valid values are 37,38"
 	exit 1
