@@ -13,7 +13,7 @@ genome_build=${2:-"37"}
 if [ ${genome_build} = "37" ]; then
 	remote="ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/BUILD.37.3/Assembled_chromosomes/seq"
 elif [ ${genome_build} = "38" ]; then
-    remote=ftp://ftp.ncbi.nlm.nih.gov/genomes/Homo_sapiens/ARCHIVE/ANNOTATION_RELEASE.109/Assembled_chromosomes/seq/
+    remote=ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/GCA_000001405.15_GRCh38_assembly_structure/Primary_Assembly/assembled_chromosomes/FASTA/
 else
 	echo "Error: Unsupported genome build ${genome_build}, valid values are 37,38"
 	exit 1
@@ -22,15 +22,15 @@ fi
 temp_dir=`mktemp -d -p ${output_dir}`
 pushd ${temp_dir}
 
-for chrom in `seq 1 22` X Y MT
+for chrom in `seq 1 22` X Y
 do
-    wget ${remote}/*_ref_*chr${chrom}.fa.gz
+    wget ${remote}/chr${chrom}.fna.gz
 done
 
-for chrom in `seq 1 22` X Y MT
+for chrom in `seq 1 22` X Y
 do
     echo ">${chrom}" >> ${output_file}
-    gunzip -c *_ref_*chr${chrom}.fa.gz | grep -v ">" >> ${output_file}
+    gunzip -c chr${chrom}.fna.gz | grep -v ">" >> ${output_file}
 done
 
 if hash samtools 2>/dev/null; then
